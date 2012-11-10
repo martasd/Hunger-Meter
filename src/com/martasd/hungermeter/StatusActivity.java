@@ -31,7 +31,7 @@ public class StatusActivity extends Activity {
         /** Check if this is the first app run. */
         if (firstRun(sharedPrefs)) {
         	
-        	/** Launch dialog asking user to enter Preferences. */
+        	/** TODO: Launch dialog asking user to enter Preferences. */
         	
         	/** Indicate that first run has happened already. */
         	setFirstRun(sharedPrefs);
