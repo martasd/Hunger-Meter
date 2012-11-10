@@ -1,0 +1,27 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/remainingTimeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/remainingTimeLabel"
+        android:textSize="40sp"
+        tools:context=".DisplayStatsActivity" />
+
+    <TextView
+        android:id="@+id/remainingTimeContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/remainingTimeLabel"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="@string/remainingTimeContent"
+        android:textColor="#008B00"
+        android:textSize="40sp"
+        tools:context=".DisplayStatsActivity" />
+
+</RelativeLayout>

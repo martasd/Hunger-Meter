@@ -1,0 +1,62 @@
+<resources>
+
+    <string name="app_name">Hunger Meter</string>
+    <string name="enterFood">Enter calories consumed</string>
+    <string name="menu_settings">Settings</string>
+    <string name="buttonEnter">Enter</string>
+    <string name="title_activity_status">How much did you eat this time?</string>
+    <string name="title_activity_display_stats">How long can you survive?</string>
+    <string name="title_activity_prefs">Preferences</string>
+    <string name="title_activity_how_it_works">How it works?</string>
+    <string name="title_activity_credits">Credits</string>
+    <string name="titlePrefs">Preferences</string>
+    <string name="hello_world">Hello World!</string>
+    <string name="explanation">Studies show that a person needs 2,000 calories per day on average. Thus, assuming that 
+	  you eat 4 equally large meals a day, this app expects that you need to consume 500 
+	  calories per meal to fulfill your nutritious need. Furthermore, this app also assumes 
+	  that a 500 calorie meal will supply you with enough energy for 4 hours. The app author 
+	  is aware that these assumptions are somewhat arbitrary, but regards them as 
+	  reasonable for the beta release of the app.</string>
+	<string name="credits">This application was conceived by Liyan Chen, a wonderful idea person.</string>
+    <string name="remainingTimeLabel">Remaining Time:</string>
+    <string name="remainingTimeContent">time left before meal</string>
+
+    <!-- PREFERENCES -->
+
+
+    <!-- Username -->
+    <string name="userNameTitle">Username</string>
+    <string name="userNameSummary">Your user name</string>
+
+    <!-- Food Units -->
+    <string name="foodUnits">Food Units</string>
+    <string name="foodUnitsTypeTitle">Food Units</string>
+    <string name="foodUnitsSummary">Choose how you enter food intake</string>
+
+    <string-array name="foodUnitsEntries">
+        <item>Percentage</item>
+        <item>Calories</item>
+    </string-array>
+    <string-array name="foodUnitsValues">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <string name="foodUnitsDefaultValue">0</string>
+
+    <!-- Energy Display -->
+    <string name="energyDisplayTitle">Energy Display</string>
+    <string name="energyDisplaySummary">Choose how to display remaining energy</string>
+
+    <string-array name="energyDisplayEntries">
+        <item>Time</item>
+        <item>Percentage</item>
+    </string-array>
+    <string-array name="energyDisplayValues">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <string name="energyDisplayDefaultValue">0</string>
+
+</resources>

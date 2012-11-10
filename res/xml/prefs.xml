@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <EditTextPreference 
+        android:key="userName" 
+        android:title="@string/userNameTitle" 
+        android:summary="@string/userNameSummary" />
+    
+    <ListPreference
+            android:key="energyDisplay"
+            android:title="@string/energyDisplayTitle"
+            android:summary="@string/energyDisplaySummary"
+            android:entries="@array/energyDisplayEntries"
+            android:entryValues="@array/energyDisplayValues"
+            android:dialogTitle="@string/energyDisplayTitle"
+            android:defaultValue="@string/energyDisplayDefaultValue" />
+    
+    <ListPreference
+            android:key="foodUnitsType"
+            android:title="@string/foodUnitsTypeTitle"
+            android:summary="@string/foodUnitsSummary"
+            android:entries="@array/foodUnitsEntries"
+            android:entryValues="@array/foodUnitsValues"
+            android:dialogTitle="@string/foodUnitsTypeTitle"
+            android:defaultValue="@string/foodUnitsDefaultValue" />
+    
+</PreferenceScreen>
