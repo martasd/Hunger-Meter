@@ -37,7 +37,6 @@ public class StatusActivity extends Activity {
         	setFirstRun(sharedPrefs);
         }
 
-     
         //String syncConnPref = sharedPrefs.getString(PrefsActivity.foodUnitsType, "");
         
 //        /** Show the appropriate Enter Energy fragment. */
