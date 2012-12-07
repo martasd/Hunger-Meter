@@ -1,7 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.martasd.hungermeter"
-    android:versionCode="1"
-    android:versionName="0.1.0" >
+    android:versionCode="2"
+    android:versionName="0.2" >
+
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <uses-sdk
@@ -11,10 +13,13 @@
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/Theme.Sherlock" >
         <activity
-            android:name=".StatusActivity"
-            android:label="@string/title_activity_status" >
+            android:name="com.martasd.hungermeter.MainActivity"
+            android:label="@string/app_name"
+            android:uiOptions="splitActionBarWhenNarrow"
+            android:launchMode="singleTask"
+            android:taskAffinity="" >
             <intent-filter android:label="@string/app_name" >
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,30 +27,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DisplayStatsActivity"
-            android:excludeFromRecents="true"
-            android:label="@string/title_activity_display_stats"
-            android:launchMode="singleTask"
-            android:taskAffinity="" >
-            <intent-filter>
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".PrefsActivity"
+            android:name="com.martasd.hungermeter.PrefsActivity"
             android:label="@string/title_activity_prefs" >
         </activity>
         <activity
-            android:name=".HowItWorksActivity"
+            android:name="com.martasd.hungermeter.HowItWorksActivity"
             android:label="@string/title_activity_how_it_works" >
             <intent-filter>
             </intent-filter>
         </activity>
         <activity
-            android:name=".CreditsActivity"
+            android:name="com.martasd.hungermeter.CreditsActivity"
             android:label="@string/title_activity_credits" >
             <intent-filter>
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

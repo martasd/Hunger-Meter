@@ -3,16 +3,19 @@
     <item 
         android:id="@+id/credits" 
         android:title="@string/title_activity_credits" 
-        android:icon="@drawable/ic_credit" >
+        android:icon="@drawable/ic_credit"
+        android:showAsAction="ifRoom|withText" >
     </item>
     <item 
         android:id="@+id/howItWorks" 
         android:title="@string/title_activity_how_it_works" 
-        android:icon="@drawable/ic_menu_how" >
+        android:icon="@drawable/ic_menu_how"
+        android:showAsAction="ifRoom|withText" >
     </item>
     <item 
         android:id="@+id/itemPrefs" 
         android:title="@string/titlePrefs" 
-        android:icon="@android:drawable/ic_menu_preferences">
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:showAsAction="ifRoom|withText" >
     </item>
 </menu>

@@ -1,0 +1,39 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_status"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+
+     <TextView
+         android:id="@+id/fragmentTitle"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_centerHorizontal="true"
+         android:layout_marginTop="18dp"
+         android:hint="@string/titleFragmentStatus"
+         android:textSize="20sp" />
+
+      <EditText
+          android:id="@+id/foodIntake"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/fragmentTitle"
+          android:layout_marginTop="20dp"
+          android:layout_centerHorizontal="true"
+          android:hint="@string/enterFood"
+          android:inputType="number"
+          android:textSize="20sp" >
+      </EditText>
+
+      <Button
+          android:id="@+id/buttonEnter"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/foodIntake"
+          android:layout_marginTop="15dp"   
+          android:layout_centerHorizontal="true"
+          android:text="@string/buttonEnter"
+          android:textSize="28sp" />
+
+</RelativeLayout>

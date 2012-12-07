@@ -8,19 +8,19 @@
     <ListPreference
             android:key="energyDisplay"
             android:title="@string/energyDisplayTitle"
+            android:dialogTitle="@string/energyDisplayTitle"
             android:summary="@string/energyDisplaySummary"
             android:entries="@array/energyDisplayEntries"
             android:entryValues="@array/energyDisplayValues"
-            android:dialogTitle="@string/energyDisplayTitle"
             android:defaultValue="@string/energyDisplayDefaultValue" />
     
-    <ListPreference
-            android:key="foodUnitsType"
-            android:title="@string/foodUnitsTypeTitle"
-            android:summary="@string/foodUnitsSummary"
-            android:entries="@array/foodUnitsEntries"
-            android:entryValues="@array/foodUnitsValues"
-            android:dialogTitle="@string/foodUnitsTypeTitle"
-            android:defaultValue="@string/foodUnitsDefaultValue" />
+<!--     <ListPreference -->
+<!--             android:key="foodUnitsType" -->
+<!--             android:title="@string/foodUnitsTypeTitle" -->
+<!--             android:summary="@string/foodUnitsSummary" -->
+<!--             android:entries="@array/foodUnitsEntries" -->
+<!--             android:entryValues="@array/foodUnitsValues" -->
+<!--             android:dialogTitle="@string/foodUnitsTypeTitle" -->
+<!--             android:defaultValue="@string/foodUnitsDefaultValue" /> -->
     
 </PreferenceScreen>
