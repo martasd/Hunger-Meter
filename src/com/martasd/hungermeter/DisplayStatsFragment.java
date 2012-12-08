@@ -22,7 +22,6 @@
 package com.martasd.hungermeter;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.martasd.hungermeter.StatusFragment.OnButtonClickListener;
 
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
@@ -33,6 +32,7 @@ import android.view.ViewGroup;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 import android.app.Activity;
@@ -43,9 +43,9 @@ import android.os.CountDownTimer;
 
 /** Defines the screen where remaining energy is displayed. */
 public class DisplayStatsFragment extends SherlockFragment {
+	OnButtonResetClickListener buttonResetCallback;
 	private TextView remainingTimeContent;
-	private TextView remainingTimeLabel;
-	public OnButtonClickListener buttonCallback;
+	private Button buttonReset;
 	public NotifyToEatListener notifyCallback;
 	private FoodTimer foodTimer = null; // indicate that FoodTimer has not started yet
 	private static String enteredCalories = null;
@@ -60,10 +60,20 @@ public class DisplayStatsFragment extends SherlockFragment {
 	public final static double CALORIES_PER_MEAL = 500;
 	public final static String ENERGY_DISPLAY = "Time";
 	
+	// Colors for FoodTimer
+	private final static String GREEN = "#008B00";
+	private final static String YELLOW = "#FFAA00";
+	private final static String RED = "#EE0000";
+	
 	// Has to be implemented by the parent (container) activity
 	public interface NotifyToEatListener {
 	    public void notifyToEat(int remainingMinutes);
 	}
+	
+	// Has to be implemented by the parent (container) activity
+	public interface OnButtonResetClickListener {
+        public void onButtonResetClick();
+    }
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,25 +96,46 @@ public class DisplayStatsFragment extends SherlockFragment {
     	super.onActivityCreated(savedInstanceState);
     	
     	remainingTimeContent = (TextView) getView().findViewById(R.id.remainingTimeContent);
-        remainingTimeLabel   = (TextView) getView().findViewById(R.id.remainingTimeLabel);
+        buttonReset          = (Button)   getView().findViewById(R.id.buttonReset);
     }
     @Override
     public void onStart() {
     	super.onStart();
+		remainingTimeContent.setVisibility(View.VISIBLE);
 
-    	 /** Retrieve the energyDisplay preference. */
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
-         
-        String energyDisplay = sharedPrefs.getString("energyDisplay", "");
-        
-        if (enteredCalories == null) {
-        	//setRemainingTimeContent("Tell me how much you have eaten first!");
-        	//setRemainingTimeLabelVisibility(false);
-        }
-        else {
-        	updateFoodTimer(enteredCalories);
-        	enteredCalories = null;
-        }
+
+    	buttonReset.setOnClickListener(new View.OnClickListener() {
+    		public void onClick(View v) {
+    			if (foodTimer != null) {
+    				foodTimer.cancel();
+    				foodTimer = null;
+    				remainingTimeContent.setVisibility(View.INVISIBLE);
+    			}
+    		}
+    	});
+    	
+    	/** Retrieve the energyDisplay preference. */
+    	//SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.getActivity());   
+    	//String energyDisplay = sharedPrefs.getString("energyDisplay", "");
+
+    	if (enteredCalories != null) {
+    		// The user entered calories
+    		updateFoodTimer(enteredCalories);
+    		selectFoodTimerColor();
+    		buttonReset.setVisibility(View.VISIBLE);
+    		enteredCalories = null;
+    	}
+    	else if (foodTimer == null) {
+    		// Food Timer has not been started yet
+    		setRemainingTimeContent("Tell me how much you have eaten first!");
+    		setRemainingTimeContentColor(GREEN);
+    		buttonReset.setVisibility(View.INVISIBLE);
+    	}
+    	else {
+    		// Select appropriate color on start
+    		selectFoodTimerColor();
+    		buttonReset.setVisibility(View.VISIBLE);
+    	}  
     }
 
     public void updateCalories(String calories) {
@@ -129,7 +160,7 @@ public class DisplayStatsFragment extends SherlockFragment {
  
         int calories = Integer.parseInt(enteredCalories);
         
-        /** TODO: Convert percentage to calories if necessary. */
+        /** TODO: Convert caloris to percentage if necessary. */
         
         /** Show either remaining time or percentage. */
         if (ENERGY_DISPLAY.equals("Time"))
@@ -137,8 +168,6 @@ public class DisplayStatsFragment extends SherlockFragment {
         	/** Calculate time to be added. */
             long timeToAdd = caloriesToTime(calories);
             long totalTime = timeToAdd + remainingTime;
-            
-        	setRemainingTimeLabelVisibility(true);
 
             /** Create and show a timer. */
             foodTimer = new FoodTimer(totalTime,1000);
@@ -159,37 +188,33 @@ public class DisplayStatsFragment extends SherlockFragment {
         // This makes sure that the container activity has implemented
         // the callback interfaces. If not, it throws an exception
         try {
-            buttonCallback = (OnButtonClickListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnButtonClickListener");
-        }
-        
-        try {
             notifyCallback = (NotifyToEatListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement NotifyToEatListener");
+        }      
+        try {
+            buttonResetCallback = (OnButtonResetClickListener) activity;
+        } 
+        catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnButtonResetClickListener");
         }
     }
 	
     /** Set what appears in the text field in the center of the screen. */
     private void setRemainingTimeContent(String content) {
     	
-    	remainingTimeContent.setTextColor(Color.parseColor("#EE0000"));
     	remainingTimeContent.setGravity(Gravity.CENTER);
         remainingTimeContent.setText(content);
     }
 	
-    private void setRemainingTimeLabelVisibility(boolean isVisible) {
-    	if (isVisible) {
-    		remainingTimeLabel.setVisibility(View.VISIBLE);
-    	}
-    	else {
-    		remainingTimeLabel.setVisibility(View.INVISIBLE);
-    	}	
+    /** Set the color of the FoodTimer. */
+    private void setRemainingTimeContentColor(String color) {
+    	remainingTimeContent.setTextColor(Color.parseColor(color));
     }
-	/** Convert from calories to remaining time. */
+    
+	/** Convert from calories to remaining time in milliseconds. */
     private long caloriesToTime(int calories) {
     	
     	double meal_fraction = calories / CALORIES_PER_MEAL;
@@ -204,6 +229,19 @@ public class DisplayStatsFragment extends SherlockFragment {
     	return 0;
     }
     
+    private void selectFoodTimerColor() {
+    	long currentTime = foodTimer.getCurrentTime();
+        if (currentTime > 1200000) {
+        	setRemainingTimeContentColor(GREEN);
+        }
+        else if (currentTime < 1200000 && currentTime > 600000) {
+        	setRemainingTimeContentColor(YELLOW);
+        }
+        else {
+        	setRemainingTimeContentColor(RED);
+        }
+    }
+    
     /** Countdown timer that shows time remaining before running out of energy */
     public class FoodTimer extends CountDownTimer {
     	
@@ -211,14 +249,15 @@ public class DisplayStatsFragment extends SherlockFragment {
     	
         public FoodTimer(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
+            
+            // Needs to be set so that colors can be chosen upon timer creation
+        	setCurrentTime(millisInFuture);
         }
 
         @Override
         public void onFinish() {
         	
-        	setRemainingTimeContent("You have run out of energy. Eat urgently!");
-        	setRemainingTimeLabelVisibility(false);
-        	    
+        	setRemainingTimeContent("You have run out of energy. Eat urgently!");       	    
         	notifyCallback.notifyToEat(0); 
         }
 
@@ -240,10 +279,14 @@ public class DisplayStatsFragment extends SherlockFragment {
         	// Signal to Main Activity to send notification to the user  
         	if (hours == 0) {
         		if (minutes == 20 && seconds == 0) {
+        	     	setRemainingTimeContent(displayTime);
+        	     	setRemainingTimeContentColor(YELLOW);
         			notifyCallback.notifyToEat(20);
         		}
         		if (minutes == 10 && seconds == 0) {
         			notifyCallback.notifyToEat(10);
+        			setRemainingTimeContent(displayTime);
+        			setRemainingTimeContentColor(RED);
         		}
         		if (minutes == 0 && seconds == 0) {
         			

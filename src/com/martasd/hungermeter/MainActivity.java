@@ -30,7 +30,8 @@ import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.MenuInflater;
 
 import com.martasd.hungermeter.DisplayStatsFragment.NotifyToEatListener;
-import com.martasd.hungermeter.StatusFragment.OnButtonClickListener;
+import com.martasd.hungermeter.DisplayStatsFragment.OnButtonResetClickListener;
+import com.martasd.hungermeter.StatusFragment.OnButtonEnterClickListener;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -55,7 +56,7 @@ import android.graphics.BitmapFactory;
  * Adapted from:
  * android-sdk/samples/android-16/ApiDemos/src/com/example/android/apis/app/FragmentTabs.java
  */
-public class MainActivity extends SherlockFragmentActivity implements OnButtonClickListener, NotifyToEatListener {
+public class MainActivity extends SherlockFragmentActivity implements OnButtonEnterClickListener, NotifyToEatListener, OnButtonResetClickListener {
 	public ActionBar actionBar;
 	public ActionBar.Tab statusTab;
 	public ActionBar.Tab displayTab;
@@ -109,7 +110,7 @@ public class MainActivity extends SherlockFragmentActivity implements OnButtonCl
   }
 	
   @Override
-  public void onButtonClick(String amount) {
+  public void onButtonEnterClick(String amount) {
   
       // Hide the keyboard when the user presses enter button
 	  InputMethodManager inputManager = 
@@ -131,6 +132,11 @@ public class MainActivity extends SherlockFragmentActivity implements OnButtonCl
 	  }
   }	
 
+  @Override
+  public void onButtonResetClick() {
+	  // STUB
+  }
+  
   /** Determine if this is the first run of the app. */
   private boolean firstRun(SharedPreferences sharedPrefs) {
   	return sharedPrefs.getBoolean("firstRun", true);

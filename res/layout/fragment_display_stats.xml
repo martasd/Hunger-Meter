@@ -10,16 +10,25 @@
         android:layout_marginTop="18dp"
         android:layout_centerHorizontal="true"
         android:text="@string/remainingTimeLabel"
-        android:textSize="28sp" />
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/remainingTimeContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/remainingTimeLabel"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="28dp"
         android:layout_centerHorizontal="true"
-        android:textColor="#008B00"
         android:textSize="36sp" />
 
+     <Button
+         android:id="@+id/buttonReset"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/remainingTimeContent"
+         android:layout_centerHorizontal="true"
+         android:layout_marginTop="24dp"
+         android:text="@string/buttonReset"
+         android:textSize="28sp" />
+       
 </RelativeLayout>

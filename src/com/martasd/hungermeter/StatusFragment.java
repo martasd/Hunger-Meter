@@ -38,11 +38,11 @@ import com.actionbarsherlock.app.SherlockFragment;
 /** This defines the activity where the user enters food amount. */
 public class StatusFragment extends SherlockFragment {
 	public final static String EXTRA_AMOUNT = "com.martasd.hungermeter.AMOUNT";
-	OnButtonClickListener buttonCallback;
+	OnButtonEnterClickListener buttonEnterCallback;
 	
 	// Has to be implemented by the parent (container) activity
-	public interface OnButtonClickListener {
-        public void onButtonClick(String amount);
+	public interface OnButtonEnterClickListener {
+        public void onButtonEnterClick(String amount);
     }
 
     @Override
@@ -65,11 +65,11 @@ public class StatusFragment extends SherlockFragment {
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
         try {
-            buttonCallback = (OnButtonClickListener) activity;
+            buttonEnterCallback = (OnButtonEnterClickListener) activity;
         } 
         catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement OnHeadlineSelectedListener");
+                    + " must implement OnButtonEnterClickListener");
         }
     }
 
@@ -78,15 +78,15 @@ public class StatusFragment extends SherlockFragment {
 		super.onStart();
 
 		// Pass the entered amount to the container activity when button is clicked
-		Button enterButton = (Button) getView().findViewById(R.id.buttonEnter);
-		enterButton.setOnClickListener(new View.OnClickListener() {
+		Button buttonEnter = (Button) getView().findViewById(R.id.buttonEnter);
+		buttonEnter.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// Retrieve the entered amount
 				EditText editText = (EditText) getView().findViewById(R.id.foodIntake);
 				String amount = editText.getText().toString();
 
 				// pass the amount to the container function
-				buttonCallback.onButtonClick(amount);
+				buttonEnterCallback.onButtonEnterClick(amount);
 			}
 		});
 	}
