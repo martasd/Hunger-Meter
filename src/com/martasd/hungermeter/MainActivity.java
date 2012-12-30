@@ -23,6 +23,7 @@ package com.martasd.hungermeter;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
+import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -70,11 +71,16 @@ public class MainActivity extends SherlockFragmentActivity implements OnButtonEn
 		
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         
+        // TODO: Development only
+      	SharedPreferences.Editor edit = sharedPrefs.edit();
+        edit.putBoolean("firstRun", true);
+        edit.commit();
+        
         /** Check if this is the first app run. */
         if (firstRun(sharedPrefs)) {
         	
-        	/** TODO: Launch dialog asking user to enter Preferences. */
-        	
+        	SherlockDialogFragment newFragment = new WelcomeDialog();
+        	newFragment.show(getSupportFragmentManager(), "welcomeDialog");
         	/** Indicate that first run has happened already. */
         	setFirstRun(sharedPrefs);
         }
@@ -134,7 +140,10 @@ public class MainActivity extends SherlockFragmentActivity implements OnButtonEn
 
   @Override
   public void onButtonResetClick() {
-	  // STUB
+	  // Switch to the StatusTab tab to allow the user to enter calories again
+	  FragmentTransaction ft = this.getSupportFragmentManager().beginTransaction();
+	  actionBar.selectTab(statusTab);
+	  ft.commit();
   }
   
   /** Determine if this is the first run of the app. */

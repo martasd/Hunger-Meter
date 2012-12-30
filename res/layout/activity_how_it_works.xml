@@ -3,14 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/explanation"
-        android:textSize="20sp"
-        android:gravity="center"
-        tools:context=".HowItWorksActivity" />
+        android:fillViewport="true" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="@string/explanation"
+            android:textSize="20sp"
+            tools:context=".HowItWorksActivity" />
+    </ScrollView>
 
 </RelativeLayout>

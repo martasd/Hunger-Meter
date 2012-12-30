@@ -21,14 +21,78 @@
 
 package com.martasd.hungermeter;
 
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 
-public class PrefsActivity extends PreferenceActivity {
+public class PrefsActivity extends PreferenceActivity 
+implements OnSharedPreferenceChangeListener {
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-	   addPreferencesFromResource(R.xml.prefs);
-    }
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		addPreferencesFromResource(R.xml.prefs);
+
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		// Set summaries for all preferences
+		String prefs[] = {"height", "weight", "age", "units", "sex"}; 
+		for (String key : prefs) 
+			setSummary(sharedPrefs, key);
+	}
+
+	/* If preference is changed, update its summary. */ 
+	@Override
+	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
+			String key) {
+		setSummary(sharedPreferences, key);
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		getPreferenceScreen().getSharedPreferences()
+		.registerOnSharedPreferenceChangeListener(this);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		getPreferenceScreen().getSharedPreferences()
+		.unregisterOnSharedPreferenceChangeListener(this);
+	}
+	
+	private void setSummary(SharedPreferences sharedPreferences, 
+			String key) {
+
+		Preference pref= findPreference(key);
+		String val = sharedPreferences.getString(key, "");
+
+	   String unitsValue = sharedPreferences.getString("units", "0");
+
+		if ( key.equals("height") || key.equals("weight") || key.equals("age")) {
+			pref.setSummary(val);
+		}
+		else if (key.equals("units")) {
+
+			if (val.equals("0")) {
+				pref.setSummary("Metric");
+			}
+			else {
+				pref.setSummary("Imperial");
+			}
+		}
+		else if (key.equals("sex")) {
+
+			if (val.equals("0")) {
+				pref.setSummary("Male");
+			}
+			else {
+				pref.setSummary("Female"); 
+			}
+		}
+	}
 }

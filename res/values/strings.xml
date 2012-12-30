@@ -6,6 +6,7 @@
     <string name="menu_settings">Settings</string>
     <string name="buttonEnter">Enter</string>
     <string name="buttonReset">Reset</string>
+    <string name="buttonUseDefault">Use Default</string>
     <string name="titleFragmentStatus">How much did you eat this time?</string>
     <string name="title_activity_prefs">Preferences</string>
     <string name="title_activity_how_it_works">How it works?</string>
@@ -14,51 +15,85 @@
     <string name="tab_name_display_stats">Energy</string>
     <string name="titlePrefs">Preferences</string>
     <string name="hello_world">Hello World!</string>
-    <string name="explanation">Studies show that a person needs 2,000 calories per day on average. Thus, assuming that 
-	  you eat 4 equally large meals a day, this app expects that you need to consume 500 
-	  calories per meal to fulfill your nutritious need. Furthermore, this app also assumes 
-	  that a 500 calorie meal will supply you with enough energy for 4 hours. The app author 
-	  is aware that these assumptions are somewhat arbitrary, but regards them as 
-	  reasonable for the beta release of the app.</string>
+    <string name="explanation">When you enter calories you consumed, the system calculates time to survive in the following way. 
+        First, the system determines your basal metabolic rate (BMR). BMR is the amount of energy you burn daily at rest. 
+        To calculate BMR, the system uses the revised Harris-Benedict Equation, which takes into account your height, weight, age, and sex. 
+        For women, the equation is\n
+        \n
+        BMR = 447.593 + (9.247 x weight) + (3.098 x height) - (4.330 x age)\n
+        \n
+        and for men\n
+        \n
+        BMR = 88.362 + (13.397 x weight) + (4.799 x height) - (5.677 x age)\n
+        \n
+        If you haven\'t entered your 
+        personal data, the system will use the defaults. After calculating BMR, the system computes the fraction of daily
+        calorie amount you have just consumed and converts it to the corresponding fraction of time in
+        a day. For example, if you just ate 1/4 of your daily calorie intake, you will have 1/4 of a day 
+        (6 hours) left to survive. </string>
     <string name="credits">This application was conceived by Liyan Chen, a wonderful idea person.</string>
     <string name="remainingTimeLabel">How long can you survive?</string>
+    <string name="welcome_dialog_title">Welcome to Hunger Meter!</string>
+    <string name="welcome_dialog_text">Do you wish to enter your personal metrics?</string>
+    <string name="buttonYes">Yes, I do!</string>
+    <string name="buttonNo">No time for that now!</string>
+    <string name="done_dialog_message">You just finished the setup</string>
+    <string name="buttonCool">Cool beans!</string>
 
     <!-- PREFERENCES -->
 
 
     <!-- Username -->
     <string name="userNameTitle">Username</string>
-    <string name="userNameSummary">Your user name</string>
+    <string name="username_default_value">Unknown Lamer</string>
 
-    <!-- Food Units -->
-<!--     <string name="foodUnits">Food Units</string> -->
-<!--     <string name="foodUnitsTypeTitle">Food Units</string> -->
-<!--     <string name="foodUnitsSummary">Choose how you enter food intake</string> -->
+    <!-- Units -->
+    <string name="units_dialog_title">Choose units you prefer</string>
+    <string name="units_preference_title">Units</string>
 
-<!--     <string-array name="foodUnitsEntries"> -->
-<!--         <item>Percentage</item> -->
-<!--         <item>Calories</item> -->
-<!--     </string-array> -->
-<!--     <string-array name="foodUnitsValues"> -->
-<!--         <item>0</item> -->
-<!--         <item>1</item> -->
-<!--     </string-array> -->
-
-<!--     <string name="foodUnitsDefaultValue">0</string> -->
-
-    <!-- Energy Display -->
-    <string name="energyDisplayTitle">Energy Display</string>
-    <string name="energyDisplaySummary">Choose how to display remaining energy</string>
-
-    <string-array name="energyDisplayEntries">
-        <item>Time</item>
-        <item>Percentage</item>
+    <string-array name="units_dialog_entries">
+        <item>Metric</item>
+        <item>Imperial</item>
     </string-array>
-    <string-array name="energyDisplayValues">
-        <item>0</item>
-        <item>1</item>
-    </string-array>
+    <string-array name="units_dialog_values">
+                          <item>0</item>
+                <item>1</item>
+    </string-array>
 
-    <string name="energyDisplayDefaultValue">0</string>
+    <string name="units_default_value">0</string>
+    <string name="units_default_name">Metric</string>
+
+    <!-- Height -->
+    <string name="height_dialog_title">Enter your height</string>
+    <string name="height_preference_title">Height</string>
+    <string name="height_default_value">175</string>
+
+    <!-- Weight -->
+    <string name="weight_dialog_title">Enter your weight</string>
+    <string name="weight_preference_title">Weight</string>
+    <string name="weight_default_value">75</string>
+
+    <!-- Age -->
+    <string name="age_dialog_title">Enter your age</string>
+    <string name="age_preference_title">Age</string>
+    <string name="age_default_value">35</string>
+
+    <!-- Sex -->
+    <string name="sex_dialog_title">Indicate your sex</string>
+    <string name="sex_preference_title">Sex</string>
+
+    <string-array name="sex_dialog_entries">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+    <string-array name="sex_dialog_values">
+ 
+                   <item>0</item>
+                <item>1</item>
+    </string-array>
+
+    <string name="sex_default_value">1</string>
+    <string name="sex_default_name">Female</string>
+    <string name="title_activity_enter_dialog">EnterDialog</string>
 
 </resources>

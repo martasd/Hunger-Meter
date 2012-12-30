@@ -3,24 +3,40 @@
     <EditTextPreference 
         android:key="userName" 
         android:title="@string/userNameTitle" 
-        android:summary="@string/userNameSummary" />
+        android:summary="@string/username_default_value" />
+ 
+    <ListPreference 
+        android:key="units"
+        android:title="@string/units_preference_title"
+        android:summary="@string/units_default_name"
+        android:entries="@array/units_dialog_entries"
+        android:entryValues="@array/units_dialog_values"
+        android:defaultValue="@string/units_default_value" />
+         
+    <EditTextPreference 
+        android:key="height"
+        android:title="@string/height_preference_title"
+        android:defaultValue="@string/height_default_value"
+        android:summary="@string/height_default_value" />
     
-    <ListPreference
-            android:key="energyDisplay"
-            android:title="@string/energyDisplayTitle"
-            android:dialogTitle="@string/energyDisplayTitle"
-            android:summary="@string/energyDisplaySummary"
-            android:entries="@array/energyDisplayEntries"
-            android:entryValues="@array/energyDisplayValues"
-            android:defaultValue="@string/energyDisplayDefaultValue" />
+    <EditTextPreference 
+        android:key="weight"
+        android:title="@string/weight_preference_title"
+        android:defaultValue="@string/weight_default_value"
+        android:summary="@string/weight_default_value" />
     
-<!--     <ListPreference -->
-<!--             android:key="foodUnitsType" -->
-<!--             android:title="@string/foodUnitsTypeTitle" -->
-<!--             android:summary="@string/foodUnitsSummary" -->
-<!--             android:entries="@array/foodUnitsEntries" -->
-<!--             android:entryValues="@array/foodUnitsValues" -->
-<!--             android:dialogTitle="@string/foodUnitsTypeTitle" -->
-<!--             android:defaultValue="@string/foodUnitsDefaultValue" /> -->
+    <EditTextPreference   
+        android:key="age"
+        android:title="@string/age_preference_title"
+        android:summary="@string/age_default_value"
+        android:defaultValue="@string/age_default_value"   />
+        
+    <ListPreference 
+        android:key="sex"
+        android:title="@string/sex_preference_title"
+        android:summary="@string/sex_default_name"
+        android:entries="@array/sex_dialog_entries"
+        android:entryValues="@array/sex_dialog_values"
+        android:defaultValue="@string/sex_default_value" />
     
 </PreferenceScreen>

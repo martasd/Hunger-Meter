@@ -41,11 +41,13 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.CountDownTimer;
 
+import com.actionbarsherlock.app.ActionBar;
+
 /** Defines the screen where remaining energy is displayed. */
 public class DisplayStatsFragment extends SherlockFragment {
 	OnButtonResetClickListener buttonResetCallback;
-	private TextView remainingTimeContent;
 	private Button buttonReset;
+	private TextView remainingTimeContent;
 	public NotifyToEatListener notifyCallback;
 	private FoodTimer foodTimer = null; // indicate that FoodTimer has not started yet
 	private static String enteredCalories = null;
@@ -111,6 +113,9 @@ public class DisplayStatsFragment extends SherlockFragment {
     				foodTimer = null;
     				remainingTimeContent.setVisibility(View.INVISIBLE);
     			}
+    			
+    			// Switch to StatusFragment
+    			buttonResetCallback.onButtonResetClick();
     		}
     	});
     	
@@ -160,7 +165,7 @@ public class DisplayStatsFragment extends SherlockFragment {
  
         int calories = Integer.parseInt(enteredCalories);
         
-        /** TODO: Convert caloris to percentage if necessary. */
+        /** TODO: Convert calories to percentage if necessary. */
         
         /** Show either remaining time or percentage. */
         if (ENERGY_DISPLAY.equals("Time"))
@@ -217,10 +222,31 @@ public class DisplayStatsFragment extends SherlockFragment {
 	/** Convert from calories to remaining time in milliseconds. */
     private long caloriesToTime(int calories) {
     	
-    	double meal_fraction = calories / CALORIES_PER_MEAL;
-    	long millisInFourHours = 1000 * 3600 * 4;
-    	double total_millis = (meal_fraction * millisInFourHours);
-    	return Math.round(total_millis); 
+    	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+    	double height = Double.parseDouble(prefs.getString("height", ""));
+    	double weight = Double.parseDouble(prefs.getString("weight", ""));
+    	double age    = Double.parseDouble(prefs.getString("age", ""));
+    	
+    	String sex = prefs.getString("sex", "");
+
+    	// Calculate Basal Metabolic rate using revised Harris-Benedict equation
+    	double bmr;
+    	if (sex.equals("Male")) {
+    		bmr = 88.362 + (13.397 * weight) + (5.799 * height) - (5.677 * age);
+    	}
+    	else {
+    		bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);  		
+    	}
+    	
+    	double exerciseFactor = 1.2;
+    	double caloriesPerDay = bmr * exerciseFactor;
+    	
+    	// Fraction of calories needed daily
+    	double caloriesFraction = calories / caloriesPerDay;
+    	
+    	long millisInDay = 3600 * 24 * 1000;
+    	double totalMillis = caloriesFraction * millisInDay;
+    	return Math.round(totalMillis); 
     }
     
     /** Convert from calories to remaining percentage. */

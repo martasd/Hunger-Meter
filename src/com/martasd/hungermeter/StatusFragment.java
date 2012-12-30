@@ -84,9 +84,15 @@ public class StatusFragment extends SherlockFragment {
 				// Retrieve the entered amount
 				EditText editText = (EditText) getView().findViewById(R.id.foodIntake);
 				String amount = editText.getText().toString();
-
+				editText.setText(""); // clear text upon pressing the button
+				
+				if (amount.equals("")) {
+					//throw an error
+				}
+				else {
 				// pass the amount to the container function
 				buttonEnterCallback.onButtonEnterClick(amount);
+				}
 			}
 		});
 	}
